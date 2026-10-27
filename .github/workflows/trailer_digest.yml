@@ -3,7 +3,7 @@ name: Daily Hindi Trailer WhatsApp Digest
 on:
   schedule:
     # Runs every day at 05:30 AM UTC = 11:00 AM Indian Standard Time (IST)
-    - cron: '30 5 * * *'
+    - cron: '30 7 * * *'
   workflow_dispatch:
 
 jobs:
