@@ -1,9 +1,6 @@
 from datetime import datetime
 
 def format_trailer_digest(trailers: list[dict]) -> str:
-    """
-    Formats the list of trailers into a clean, markdown-supported WhatsApp text message.
-    """
     current_date = datetime.now().strftime("%d %b %Y")
     
     if not trailers:

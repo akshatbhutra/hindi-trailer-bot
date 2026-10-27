@@ -2,7 +2,7 @@ name: Daily Hindi Trailer WhatsApp Digest
 
 on:
   schedule:
-    # Runs everyday at 05:30 AM UTC = 11:00 AM Indian Standard Time (IST)
+    # Runs every day at 05:30 AM UTC = 11:00 AM Indian Standard Time (IST)
     - cron: '30 5 * * *'
   workflow_dispatch:
 
@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python 3.11 Environment
-        uses: actions/setup-python@v5  # <-- Added the 'actions/' prefix here
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'

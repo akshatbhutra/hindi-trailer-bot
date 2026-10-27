@@ -24,24 +24,20 @@ class YouTubeClient:
             q=query,
             part="snippet",
             type="video",
-            order="date",  # Sort by most recent
+            order="date",
             publishedAfter=published_after,
-            maxResults=50,
+            maxResults=30,
             relevanceLanguage="hi"
         ).execute()
 
         trailers = []
-        items = search_response.get("items", [])
-        
-        for item in items:
+        for item in search_response.get("items", []):
             snippet = item["snippet"]
             video_id = item["id"]["videoId"]
             title = snippet["title"]
-            description = snippet["description"]
             channel_title = snippet["channelTitle"]
             published_at = snippet["publishedAt"]
 
-            # Basic heuristic validation to ensure it looks like an official trailer/teaser
             title_lower = title.lower()
             if not any(keyword in title_lower for keyword in ["trailer", "teaser", "official"]):
                 continue
@@ -51,8 +47,7 @@ class YouTubeClient:
                 "title": title,
                 "channel": channel_title,
                 "published_at": published_at,
-                "url": f"https://www.youtube.com/watch?v={video_id}",
-                "description": description[:200] + "..." if len(description) > 200 else description
+                "url": f"https://www.youtube.com/watch?v={video_id}"
             })
 
         logger.info(f"Successfully matched and filtered {len(trailers)} valid trailers.")
