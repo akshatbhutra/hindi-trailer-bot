@@ -16,8 +16,8 @@ def main():
     logger.info("Initializing Hindi Movie Trailer Automation Pipeline...")
     settings = get_settings()
 
-    if not all([settings.youtube_api_key, settings.evolution_api_url, settings.evolution_api_token, settings.evolution_instance, settings.whatsapp_recipient]):
-        logger.error("Missing critical environment variables. Check your configuration parameters.")
+    if not all([settings.youtube_api_key, settings.evolution_api_url, settings.evolution_api_key, settings.whatsapp_number]):
+        logger.error("Missing critical environment variables. Check that YOUTUBE_API_KEY, EVOLUTION_API_URL, EVOLUTION_API_KEY, and WHATSAPP_NUMBER are set.")
         sys.exit(1)
 
     try:
@@ -31,10 +31,9 @@ def main():
         # Step 3: Dispatch over WhatsApp via Evolution API
         wa_client = WhatsAppClient(
             api_url=settings.evolution_api_url,
-            api_token=settings.evolution_api_token,
-            instance=settings.evolution_instance
+            api_token=settings.evolution_api_key
         )
-        wa_client.send_message(recipient=settings.whatsapp_recipient, message=message_body)
+        wa_client.send_message(recipient=settings.whatsapp_number, message=message_body)
         
         logger.info("Pipeline execution completed successfully.")
     except Exception as e:
